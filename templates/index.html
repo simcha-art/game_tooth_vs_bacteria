@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>מגן השן</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #2c3e50; color: white; margin: 0; padding: 20px;}
+        canvas { background-color: #ecf0f1; border: 4px solid #bdc3c7; border-radius: 10px; cursor: crosshair; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        #ui { margin-bottom: 15px; font-size: 24px; font-weight: bold; }
+        button { padding: 10px 25px; font-size: 18px; cursor: pointer; background-color: #e74c3c; color: white; border: none; border-radius: 8px; font-weight: bold;}
+        button:hover { background-color: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <h1>Tooth Guardian 🦷</h1>
+    <div id="ui">
+        בריאות השן: <span id="hpDisplay" style="color: #e74c3c;">100</span> |
+        ניקוד: <span id="scoreDisplay" style="color: #2980b9;">0</span>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <br><br>
+    <button onclick="resetGame()">התחל משחק מחדש</button>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // טעינת התמונות
+        const toothImg = new Image(); toothImg.src = '/static/tooth.png';
+        const sickToothImg = new Image(); sickToothImg.src = '/static/sick_tooth.png'; // תמונה לשן חולה
+        const dyingToothImg = new Image(); dyingToothImg.src = '/static/dying_tooth.png'; // תמונה לשן גוססת
+
+        const germImg = new Image(); germImg.src = '/static/germ.png';
+        const bossImg = new Image(); bossImg.src = '/static/boss.png';
+        const pasteImg = new Image(); pasteImg.src = '/static/paste.png';
+
+        let gameState = { hp: 100, score: 0, enemies: [], projectiles: [], game_over: false };
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (gameState.game_over) {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "red";
+                ctx.font = "bold 50px Arial";
+                ctx.fillText("המשחק נגמר!", 250, 200);
+                return;
+            }
+
+            // בחירת התמונה המתאימה לשן לפי מצב החיים
+            let currentToothImg = toothImg;
+            if (gameState.hp <= 30) {
+                currentToothImg = dyingToothImg;
+            } else if (gameState.hp <= 60) {
+                currentToothImg = sickToothImg;
+            }
+
+            // ציור השן בצד ימין
+            if (currentToothImg.complete) {
+                ctx.drawImage(currentToothImg, 690, canvas.height/2 - 60, 100, 120);
+            }
+
+            // ציור החיידקים
+            gameState.enemies.forEach(enemy => {
+                let img = enemy.size > 30 ? bossImg : germImg;
+                if (img.complete) {
+                    ctx.drawImage(img, enemy.x - enemy.size, enemy.y - enemy.size, enemy.size * 2, enemy.size * 2);
+                }
+                ctx.fillStyle = "black";
+                ctx.font = "14px Arial";
+                ctx.fillText(enemy.hp, enemy.x - 10, enemy.y - enemy.size - 5);
+            });
+
+            // ציור משחת השיניים
+            gameState.projectiles.forEach(p => {
+                if (pasteImg.complete) {
+                    ctx.drawImage(pasteImg, p.x, p.y - 15, 40, 30);
+                }
+            });
+        }
+
+        setInterval(async () => {
+            if (gameState.game_over) return;
+            const response = await fetch('/get_state');
+            gameState = await response.json();
+
+            document.getElementById('hpDisplay').innerText = gameState.hp;
+            document.getElementById('scoreDisplay').innerText = gameState.score;
+            draw();
+        }, 50);
+
+        setInterval(() => {
+            if (!gameState.game_over) fetch('/spawn', { method: 'POST' });
+        }, 1500);
+
+        canvas.addEventListener('mousedown', (event) => {
+            if (gameState.game_over) return;
+            const rect = canvas.getBoundingClientRect();
+            const clickY = event.clientY - rect.top;
+
+            fetch('/shoot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ y: clickY })
+            });
+        });
+
+        async function resetGame() {
+            await fetch('/reset', { method: 'POST' });
+            gameState.game_over = false;
+        }
+    </script>
+</body>
+</html>
