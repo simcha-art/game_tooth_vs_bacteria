@@ -57,7 +57,10 @@ while True:
         for b in bacteria:
             b.move()
         for bullet in bullets:
-            bullet.move()
+            if bullet.out_of_range():
+                bullets.remove(bullet)
+            else:
+                bullet.move()
 
         # פגיעות קליעים בחיידקים
         for bullet in bullets[:]:
