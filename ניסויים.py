@@ -210,3 +210,46 @@ class FinalVictoryScreen:
 
         prompt_surf = pygame.font.SysFont("Arial", 25).render("Press ENTER for Main Menu", True, BLUE)
         surface.blit(prompt_surf, prompt_surf.get_rect(center=(WIDTH // 2, HEIGHT - 70)))
+def test_loop():
+    start = StartScreen()
+    game_over = GameOverScreen()
+    victory = VictoryScreen()
+    final_win = FinalVictoryScreen() # יצירת המסך החדש
+
+    current_view = "START"
+    test_score = 300
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1: current_view = "START"
+                if event.key == pygame.K_2: current_view = "FAIL"
+                if event.key == pygame.K_3: current_view = "WIN"
+                if event.key == pygame.K_4: current_view = "FINAL" # מקש חדש לבדיקה
+
+        # ציור המסך הנבחר
+        if current_view == "START":
+            start.draw(screen)
+        elif current_view == "FAIL":
+            game_over.draw(screen, test_score)
+        elif current_view == "WIN":
+            victory.draw(screen, test_score)
+        elif current_view == "FINAL":
+            final_win.draw(screen, test_score)
+
+        # טקסט עזרה קטן בתחתית
+        help_font = pygame.font.SysFont("Arial", 16)
+        help_surf = help_font.render("Keys: 1-Start, 2-Fail, 3-Win Lvl1, 4-Final Win", True, BLACK if current_view == "FINAL" else WHITE)
+        screen.blit(help_surf, (10, HEIGHT - 25))
+
+        pygame.display.flip()
+
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    test_loop()
