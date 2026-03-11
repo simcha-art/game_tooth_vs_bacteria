@@ -3,18 +3,19 @@ from settings import *
 from pro_main import *
 # ---------------- BULLET ----------------
 class Bullet:
-    def __init__(self, x, y):
+    def __init__(self, x, y,direction):
         self.rect = pygame.Rect(x, y, 12, 6)
         self.start_point = x
         self.range = 200
         self.speed = 10
-        self.facing_right = True
+        self.facing_right = direction
+
 
     def move(self):
-        if player.facing_right:
-                self.rect.x += self.speed
+        if self.facing_right:
+            self.rect.x += self.speed
         else:
-                self.rect.x -= self.speed
+            self.rect.x -= self.speed
 
     def out_of_range(self):
         return abs(self.rect.x - self.start_point) > self.range

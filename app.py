@@ -33,7 +33,7 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f and game_state == "playing":
-                bullets.append(Bullet(player.rect.right, player.rect.centery))
+                bullets.append(Bullet(player.rect.right, player.rect.centery,player.facing_right))
 
     keys = pygame.key.get_pressed()
 
@@ -56,11 +56,11 @@ while True:
         # חיידקים וקליעים
         for b in bacteria:
             b.move()
-        for bullet in bullets:
+
+        for bullet in bullets[:]:
+            bullet.move()
             if bullet.out_of_range():
                 bullets.remove(bullet)
-            else:
-                bullet.move()
 
         # פגיעות קליעים בחיידקים
         for bullet in bullets[:]:
