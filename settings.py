@@ -28,6 +28,7 @@ offset_x = 0  # המצלמה
 # טעינת תמונות
 
 floor_img = pygame.image.load("static/floor.png")
+floor_img = pygame.transform.scale(floor_img, (500, 426))
 
 tooth_img_right = pygame.image.load("static/tooth_right.png")
 tooth_img_right = pygame.transform.scale(tooth_img_right, (60, 60))
@@ -43,3 +44,9 @@ germ_img_left = pygame.transform.scale(germ_img_left, (50, 50))
 
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
+
+bullets_img_right = pygame.image.load("static/paste.png")
+bullets_img_right = pygame.transform.scale(bullets_img_right,(40,40))
+
+bullets_img_left = pygame.image.load("static/paste_left.png")
+bullets_img_left = pygame.transform.scale(bullets_img_left,(40,40))

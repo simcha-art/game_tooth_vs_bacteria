@@ -7,7 +7,7 @@ class Bullet:
         self.rect = pygame.Rect(x, y, 12, 6)
         self.start_point = x
         self.range = 200
-        self.speed = 10
+        self.speed = 5
         self.facing_right = direction
 
 
@@ -21,4 +21,8 @@ class Bullet:
         return abs(self.rect.x - self.start_point) > self.range
 
     def draw(self, offset_x):
-        pygame.draw.rect(screen, (0, 200, 255), (self.rect.x - offset_x, self.rect.y, self.rect.width, self.rect.height))
+        if self.facing_right:
+            screen.blit(bullets_img_right,(self.rect.x - offset_x, self.rect.y - 25))
+        else:
+            screen.blit(bullets_img_left,(self.rect.x - offset_x, self.rect.y - 25))
+

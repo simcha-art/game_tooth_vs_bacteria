@@ -94,7 +94,9 @@ while True:
 
         # ציור המסך
         screen.fill((30, 30, 30))
-        pygame.draw.rect(screen, BROWN, (0 - offset_x, 500, LEVEL_WIDTH, 100))  # רצפת המשחק
+        #pygame.draw.rect(screen, BROWN, (0 - offset_x, 485, LEVEL_WIDTH, 100))# רצפת המשחק
+        for x in range(0, LEVEL_WIDTH, floor_img.get_width()):
+            screen.blit(floor_img, (x - offset_x, 310))
         pygame.draw.rect(screen, RED, (cola_pit.x - offset_x, cola_pit.y, cola_pit.width, cola_pit.height))
         player.draw(offset_x)
         for b in bacteria: b.draw(offset_x)
