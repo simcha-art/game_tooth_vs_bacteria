@@ -22,7 +22,7 @@ class Bullet:
 
     def draw(self, offset_x):
         if self.facing_right:
-            screen.blit(bullets_img_right,(self.rect.x - offset_x, self.rect.y - 25))
+            screen.blit(bullets_img_right,((self.rect.x - offset_x)-50, self.rect.y - 25))
         else:
-            screen.blit(bullets_img_left,(self.rect.x - offset_x, self.rect.y - 25))
+            screen.blit(bullets_img_left,((self.rect.x - offset_x)-120, self.rect.y - 25))
 

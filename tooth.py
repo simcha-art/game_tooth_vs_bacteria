@@ -17,7 +17,7 @@ class Tooth:
             self.rect.x += 5
             self.facing_right = True
         if keys[pygame.K_SPACE] and self.on_ground:
-            self.vel_y = -15
+            self.vel_y = -20
             self.on_ground = False
 
         self.vel_y += gravity
