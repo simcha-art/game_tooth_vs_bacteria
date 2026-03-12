@@ -6,6 +6,9 @@ BLACK = (0, 0, 0)
 RED = (200, 0, 0)
 BROWN = (120, 70, 20)
 
+#צבע רקע
+GUM_PINK = (200, 80, 150)
+
 #כוח המשיכה
 gravity = 0.8
 
@@ -31,16 +34,16 @@ floor_img = pygame.image.load("static/floor.png")
 floor_img = pygame.transform.scale(floor_img, (500, 426))
 
 tooth_img_right = pygame.image.load("static/tooth_right.png")
-tooth_img_right = pygame.transform.scale(tooth_img_right, (60, 60))
+tooth_img_right = pygame.transform.scale(tooth_img_right, (120, 120))
 
 tooth_img_left = pygame.image.load("static/tooth_left.png")
-tooth_img_left = pygame.transform.scale(tooth_img_left, (60, 60))
+tooth_img_left = pygame.transform.scale(tooth_img_left, (120, 120))
 
 germ_img_right = pygame.image.load("static/germ_right.png")
-germ_img_right = pygame.transform.scale(germ_img_right, (50, 50))
+germ_img_right = pygame.transform.scale(germ_img_right, (100, 100))
 
 germ_img_left = pygame.image.load("static/germ_left.png")
-germ_img_left = pygame.transform.scale(germ_img_left, (50, 50))
+germ_img_left = pygame.transform.scale(germ_img_left, (100, 100))
 
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))

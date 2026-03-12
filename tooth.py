@@ -3,7 +3,7 @@ from settings import *
 # ---------------- PLAYER ----------------
 class Tooth:
     def __init__(self):
-        self.rect = pygame.Rect(100, 400, 60, 60)
+        self.rect = pygame.Rect(100, 0, 120, 120)
         self.vel_y = 0
         self.hp = 100
         self.on_ground = False
@@ -23,8 +23,8 @@ class Tooth:
         self.vel_y += gravity
         self.rect.y += self.vel_y
 
-        if self.rect.bottom >= 500:
-            self.rect.bottom = 500
+        if self.rect.bottom >= 535:
+            self.rect.bottom = 535
             self.vel_y = 0
             self.on_ground = True
 
