@@ -14,6 +14,8 @@ from data import *
 
 
 pygame.init()
+pygame.mixer.init()
+
 
 
 
@@ -34,6 +36,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f and game_state == "playing":
                 bullets.append(Bullet(player.rect.right, player.rect.centery,player.facing_right))
+                shot_sound.play()
 
     keys = pygame.key.get_pressed()
 
@@ -76,6 +79,7 @@ while True:
             if player.rect.colliderect(b.rect):
                 player.hp -= 10
                 bacteria.remove(b)
+                player_hit_sound.play()
 
         for s in candies[:]:
             if player.rect.colliderect(s.rect):
@@ -89,6 +93,7 @@ while True:
 
         if player.hp <= 0:
             save_score(score)
+            game_over_sound.play()
             reset_level(player, bacteria, bullets, candies)
             score = 0
 

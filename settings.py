@@ -53,3 +53,9 @@ bullets_img_right = pygame.transform.scale(bullets_img_right,(40,40))
 
 bullets_img_left = pygame.image.load("static/paste_left.png")
 bullets_img_left = pygame.transform.scale(bullets_img_left,(40,40))
+
+# ------טעינת צלילים-----
+jump_sound = pygame.mixer.Sound("sounds/jumping.wav")
+shot_sound = pygame.mixer.Sound("sounds/shot.wav")
+game_over_sound=  pygame.mixer.Sound("sounds/game_over.wav")
+player_hit_sound = pygame.mixer.Sound("sounds/player_hit.wav")

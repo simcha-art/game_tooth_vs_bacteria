@@ -19,6 +19,7 @@ class Tooth:
         if keys[pygame.K_SPACE] and self.on_ground:
             self.vel_y = -20
             self.on_ground = False
+            jump_sound.play()
 
         self.vel_y += gravity
         self.rect.y += self.vel_y
