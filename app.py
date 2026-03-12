@@ -33,7 +33,7 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f and game_state == "playing":
-                bullets.append(Bullet(player.rect.right, player.rect.centery))
+                bullets.append(Bullet(player.rect.right, player.rect.centery,player.facing_right))
 
     keys = pygame.key.get_pressed()
 
@@ -56,8 +56,11 @@ while True:
         # חיידקים וקליעים
         for b in bacteria:
             b.move()
-        for bullet in bullets:
+
+        for bullet in bullets[:]:
             bullet.move()
+            if bullet.out_of_range():
+                bullets.remove(bullet)
 
         # פגיעות קליעים בחיידקים
         for bullet in bullets[:]:
@@ -91,7 +94,9 @@ while True:
 
         # ציור המסך
         screen.fill((30, 30, 30))
-        pygame.draw.rect(screen, BROWN, (0 - offset_x, 500, LEVEL_WIDTH, 100))  # רצפת המשחק
+        #pygame.draw.rect(screen, BROWN, (0 - offset_x, 485, LEVEL_WIDTH, 100))# רצפת המשחק
+        for x in range(0, LEVEL_WIDTH, floor_img.get_width()):
+            screen.blit(floor_img, (x - offset_x, 310))
         pygame.draw.rect(screen, RED, (cola_pit.x - offset_x, cola_pit.y, cola_pit.width, cola_pit.height))
         player.draw(offset_x)
         for b in bacteria: b.draw(offset_x)
