@@ -5,7 +5,7 @@ from settings import *
 # ---------------- BACTERIA ----------------
 class Bacteria:
     def __init__(self, x, y):
-        self.rect = pygame.Rect(x, y, 40, 40)
+        self.rect = pygame.Rect(x, y, 100, 100)
         self.speed = random.choice([-2, 2])
 
     def move(self):
