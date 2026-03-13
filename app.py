@@ -14,6 +14,8 @@ from data import *
 
 
 pygame.init()
+pygame.mixer.init()
+
 
 
 
@@ -34,6 +36,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f and game_state == "playing":
                 bullets.append(Bullet(player.rect.right, player.rect.centery,player.facing_right))
+                shot_sound.play()
 
     keys = pygame.key.get_pressed()
 
@@ -76,6 +79,7 @@ while True:
             if player.rect.colliderect(b.rect):
                 player.hp -= 10
                 bacteria.remove(b)
+                player_hit_sound.play()
 
         for s in candies[:]:
             if player.rect.colliderect(s.rect):
@@ -89,14 +93,15 @@ while True:
 
         if player.hp <= 0:
             save_score(score)
+            game_over_sound.play()
             reset_level(player, bacteria, bullets, candies)
             score = 0
 
         # ציור המסך
-        screen.fill((30, 30, 30))
+        screen.fill((GUM_PINK))
         #pygame.draw.rect(screen, BROWN, (0 - offset_x, 485, LEVEL_WIDTH, 100))# רצפת המשחק
         for x in range(0, LEVEL_WIDTH, floor_img.get_width()):
-            screen.blit(floor_img, (x - offset_x, 310))
+            screen.blit(floor_img, (x - offset_x, 330))
         pygame.draw.rect(screen, RED, (cola_pit.x - offset_x, cola_pit.y, cola_pit.width, cola_pit.height))
         player.draw(offset_x)
         for b in bacteria: b.draw(offset_x)

@@ -3,7 +3,7 @@ from settings import *
 # ---------------- PLAYER ----------------
 class Tooth:
     def __init__(self):
-        self.rect = pygame.Rect(100, 400, 60, 60)
+        self.rect = pygame.Rect(100, 0, 120, 120)
         self.vel_y = 0
         self.hp = 100
         self.on_ground = False
@@ -17,14 +17,15 @@ class Tooth:
             self.rect.x += 5
             self.facing_right = True
         if keys[pygame.K_SPACE] and self.on_ground:
-            self.vel_y = -15
+            self.vel_y = -20
             self.on_ground = False
+            jump_sound.play()
 
         self.vel_y += gravity
         self.rect.y += self.vel_y
 
-        if self.rect.bottom >= 500:
-            self.rect.bottom = 500
+        if self.rect.bottom >= 535:
+            self.rect.bottom = 535
             self.vel_y = 0
             self.on_ground = True
 
