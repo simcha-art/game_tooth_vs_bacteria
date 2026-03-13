@@ -48,6 +48,25 @@ while True:
         offset_x = player.rect.x - WIDTH // 2
         offset_x = max(0, min(LEVEL_WIDTH - WIDTH, offset_x))
 
+        #ניהול קולה
+        # 1. הגדרת המכשול (בור הקולה)
+        # 350 זה המיקום, 490 זה הגובה (טיפה מעל הרצפה כדי שיזהה מגע)
+        cola_pit = pygame.Rect(350, 490, 120, 110)
+
+        # 2. בדיקת מגע והורדת ניקוד (בדיוק כמו בחיידקים)
+        # 1. הגדרת המכשול
+        cola_pit = pygame.Rect(350, 490, 120, 110)
+
+        if player.rect.colliderect(cola_pit):
+            if can_lose_score:  # המנעול שלנו
+                player.hp -= 10  # מוריד 10 מהחיים (HP)
+                can_lose_score = False  # נועל כדי שלא ירד עוד
+                print(f"Hit Cola! HP left: {player.hp}")
+
+            player.speed = 1  # האטה בזמן השהייה
+        else:
+            can_lose_score = True  # משחרר את הנעילה רק כשיוצאים מהבור
+            player.speed = 5
         # ניהול סוכריות
         spawn_timer += 1
         if spawn_timer > 200:
@@ -86,10 +105,7 @@ while True:
                 player.hp -= 5
                 candies.remove(s)
 
-        # בור קולה
-        cola_pit = pygame.Rect(350, 500, 120, 100)
-        if player.rect.colliderect(cola_pit):
-            player.hp = 0
+
 
         if player.hp <= 0:
             save_score(score)
