@@ -60,6 +60,24 @@ germ_img_left = pygame.transform.scale(germ_img_left, (100, 100))
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
 
+acid_bullet = pygame.image.load("static/יריית חומצה.png")
+acid_bullet = pygame.transform.scale(acid_bullet, (70, 60))
+
+shooter_germ_img = pygame.image.load("static/acid germ.png")
+shooter_germ_img = pygame.transform.scale(shooter_germ_img, (100, 100))
+
+knight_germ_img = pygame.image.load("static/knight_germ_img.png")
+knight_germ_img = pygame.transform.scale(knight_germ_img, (150, 100))
+
+tracing_germ_left = pygame.image.load("static/tracing_germ_right.png")
+tracing_germ_left = pygame.transform.scale(tracing_germ_left, (120, 120))
+
+
+tracing_germ_right = pygame.image.load("static/tracing_germ_left.png")
+tracing_germ_right = pygame.transform.scale(tracing_germ_right, (120, 120))
+
+
+
 
 #תמונות של הבלונים
 YELLO_BALLOON_IMG = pygame.image.load("static/yellow_balloon.png")

@@ -11,7 +11,7 @@ def reset_level(player, bacteria, bullets, candies):
     candies.clear()
 
     # עדכון רשימת החיידקים בזיכרון (Slice Assignment)
-    bacteria[:] = [Bacteria(random.randint(300, 4000), 460) for b in range(10)]
+    bacteria[:] = [RegularBacteria(random.randint(300, 4000), 460) for b in range(10)]
 
 
 # ---------------- מסך פתיחה ----------------
