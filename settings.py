@@ -32,6 +32,7 @@ offset_x = 0  # המצלמה
 
 floor_img = pygame.image.load("static/floor.png")
 floor_img = pygame.transform.scale(floor_img, (500, 426))
+platform_img = pygame.transform.scale(floor_img,(400,300))
 
 tooth_img_right = pygame.image.load("static/tooth_right.png")
 tooth_img_right = pygame.transform.scale(tooth_img_right, (120, 120))
@@ -54,6 +55,8 @@ bullets_img_right = pygame.transform.scale(bullets_img_right,(40,40))
 bullets_img_left = pygame.image.load("static/paste_left.png")
 bullets_img_left = pygame.transform.scale(bullets_img_left,(40,40))
 
+cola_pit_img = pygame.image.load("static/cola_pit.png")
+cola_pit_img = pygame.transform.scale(cola_pit_img,(150,200))
 # ------טעינת צלילים-----
 jump_sound = pygame.mixer.Sound("sounds/jumping.wav")
 shot_sound = pygame.mixer.Sound("sounds/shot.wav")

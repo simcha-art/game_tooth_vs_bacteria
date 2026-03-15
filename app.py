@@ -87,9 +87,9 @@ while True:
                 candies.remove(s)
 
         # בור קולה
-        cola_pit = pygame.Rect(350, 500, 120, 100)
-        if player.rect.colliderect(cola_pit):
-            player.hp = 0
+        for c in cola_pits:
+            if player.rect.colliderect(c):
+                player.hp = 0
 
         if player.hp <= 0:
             save_score(score)
@@ -99,13 +99,13 @@ while True:
 
         # ציור המסך
         screen.fill((GUM_PINK))
-        #pygame.draw.rect(screen, BROWN, (0 - offset_x, 485, LEVEL_WIDTH, 100))# רצפת המשחק
         for x in range(0, LEVEL_WIDTH, floor_img.get_width()):
             screen.blit(floor_img, (x - offset_x, 330))
-        pygame.draw.rect(screen, RED, (cola_pit.x - offset_x, cola_pit.y, cola_pit.width, cola_pit.height))
+        for c in cola_pits: c.draw(offset_x)
         player.draw(offset_x)
         for b in bacteria: b.draw(offset_x)
         for s in candies: s.draw(offset_x)
+        for p in platforms: p.draw(offset_x)
         for bullet in bullets: bullet.draw(offset_x)
 
         hp_text = font.render(f"HP: {player.hp}", True, WHITE)
