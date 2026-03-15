@@ -9,6 +9,7 @@ def reset_level(player, bacteria, bullets, candies):
     player.rect.topleft = (100, 400)
     bullets.clear()
     candies.clear()
+
     # עדכון רשימת החיידקים בזיכרון (Slice Assignment)
     bacteria[:] = [Bacteria(random.randint(300, 4000), 460) for b in range(10)]
 
