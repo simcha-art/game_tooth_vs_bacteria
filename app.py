@@ -24,7 +24,9 @@ victory_screen = VictoryScreen()
 final_victory_screen = FinalVictoryScreen()
 
 
-
+#לבור קולה
+last_damage_time = 0
+damage_delay = 500
 
 
 
@@ -32,6 +34,7 @@ final_victory_screen = FinalVictoryScreen()
 
 while True:
     clock.tick(60)
+    current_time = pygame.time.get_ticks()
 
     if game_state == "start":
         start_screen.draw(screen)
@@ -131,7 +134,16 @@ while True:
         #בור קולה
         for c in cola_pits:
             if player.rect.colliderect(c):
-                player.hp = 0
+                if current_time -last_damage_time > damage_delay:
+                    player.hp -= 2
+                    last_damage_time = current_time
+
+        #פלטפורמות
+        for p in platforms:
+            if player.rect.colliderect(p):
+                player.rect.bottom = 350
+                player.vel_y = 0
+                player.on_ground = True
 
         if player.hp <= 0:
             save_score(score)
