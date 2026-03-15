@@ -43,11 +43,12 @@ class RegularBacteria(BaseBacteria):
             self.facing_right = self.current_speed > 0
 
 
+
 # ---------------- 2. חיידק עוקב (איטי, רודף אחרי השן) ----------------
 class TrackerBacteria(BaseBacteria):
     def __init__(self, x, y):
-        # מהירות נמוכה (1.5)
-        super().__init__(x, y, speed=1.5, damage=10)
+        # מהירות גבוהה (1.5)
+        super().__init__(x, y, speed=5, damage=10)
 
     def move(self, target_rect):
         # אם יש מטרה (השן), נזוז לכיוונה
@@ -58,6 +59,15 @@ class TrackerBacteria(BaseBacteria):
             elif target_rect.centerx < self.rect.centerx:
                 self.rect.x -= self.speed
                 self.facing_right = False
+
+    def draw(self, offset_x):
+        # פונקציית ציור גלובלית לכולם, חוסך קוד כפול!
+        if self.facing_right:
+            screen.blit(tracing_germ_right, (self.rect.x - offset_x, self.rect.y))
+        else:
+            screen.blit(tracing_germ_left, (self.rect.x - offset_x, self.rect.y))
+
+
 
 
 # ---------------- 3. חיידק אביר (כבד, מוריד הרבה חיים) ----------------
@@ -73,20 +83,27 @@ class KnightBacteria(BaseBacteria):
         if self.rect.left < 0 or self.rect.right > LEVEL_WIDTH:
             self.current_speed *= -1
             self.facing_right = self.current_speed > 0
+    def draw(self, offset_x):
+        screen.blit(knight_germ_img, (self.rect.x - offset_x, self.rect.y))
 
 
 class AcidDrop:
     def __init__(self, x, y, facing_right):
         self.rect = pygame.Rect(x, y, 10, 10)
-        self.speed = 6 if facing_right else -6
+        self.start_x = x  # שומרים את מיקום ההתחלה של הקליע
+        self.speed = 3 if facing_right else -3
         self.damage = 10  # מחסיר 10 חיים במקום 5
 
     def move(self):
         self.rect.x += self.speed
 
+    def out_of_range(self, max_distance=200):
+        # בודק האם המרחק הנוכחי מנקודת ההתחלה גדול מהטווח שהוגדר
+        return abs(self.rect.x - self.start_x) > max_distance
+
     def draw(self, offset_x):
-        # כרגע מצויר כריבוע ירוק, אפשר להחליף בתמונה
-        pygame.draw.rect(screen, (0, 255, 0), (self.rect.x - offset_x, self.rect.y, 10, 10))
+        # כרגע מצויר כתמונה של כדור חומצה
+        screen.blit(acid_bullet, (self.rect.x - offset_x, self.rect.y, 10, 10))
 
 
 class ShooterBacteria(BaseBacteria):
@@ -106,16 +123,21 @@ class ShooterBacteria(BaseBacteria):
             else:
                 # יורה קליע
                 self.projectiles.append(AcidDrop(self.rect.centerx, self.rect.centery, self.facing_right))
-                self.shoot_cooldown = 60  # יורה כל 60 פריימים (נניח שנייה אחת)
+                self.shoot_cooldown = 90  # יורה כל 60 פריימים (נניח שנייה אחת)
 
-        # מעדכן את הקליעים שלו
-        for proj in self.projectiles:
+        # מעדכן את הקליעים שלו ומוחק את אלה שעברו את הטווח
+        for proj in self.projectiles[:]:  # שמתי [:] כדי שנוכל למחוק איברים בבטחה מהרשימה תוך כדי ריצה עליה
             proj.move()
+            if proj.out_of_range(200):  # טווח המקסימום מוגדר פה ל-100 פיקסלים
+                self.projectiles.remove(proj)
 
     def draw(self, offset_x):
         # מצייר את החיידק
-        super().draw(offset_x)
+        if self.facing_right:
+            screen.blit(shooter_germ_img, (self.rect.x - offset_x, self.rect.y))
+        else:
+            screen.blit(shooter_germ_img, (self.rect.x - offset_x, self.rect.y))
+
         # מצייר גם את הקליעים שלו
         for proj in self.projectiles:
             proj.draw(offset_x)
-
