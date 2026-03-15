@@ -1,5 +1,5 @@
 import pygame
-from game_tooth_vs_bacteria.game_by_pygame.settings import WHITE, RED, GREEN, YELLOW, SCREEN_WIDTH, SCREEN_HEIGHT
+from settings import *
 
 
 class GameOverScreen:
