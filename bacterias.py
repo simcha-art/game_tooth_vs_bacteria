@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from settings import *
 
 class BaseBacteria(ABC):
-    def __init__(self, x, y, width=40, height=40, speed=2, damage=10):
+    def __init__(self, x, y, width=100, height=100, speed=2, damage=10):
         self.rect = pygame.Rect(x, y, width, height)
         self.speed = speed
         self.damage = damage

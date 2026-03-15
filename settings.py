@@ -62,6 +62,7 @@ candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
 
 
+
 #תמונות של הבלונים
 YELLO_BALLOON_IMG = pygame.image.load("static/yellow_balloon.png")
 RED_BALLOON_IMG = pygame.image.load("static/red_balloon.png")

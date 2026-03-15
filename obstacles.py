@@ -14,23 +14,20 @@ class Candy:
     def draw(self, offset_x):
         screen.blit(candy_img,(self.rect.x - offset_x, self.rect.y))
 
-# ---------------- COLA ----------------
-class Cola:
-    def __init__(self):
-        # המיקום: 520 כדי שיהיה מתחת לרצפה (שהיא בדרך כלל ב-500)
-        self.rect = pygame.Rect(350, 520, 120, 80)
-        self.color = (60, 30, 0) # צבע חום קולה
+# ---------------- בור קולה ---------
+class Cola_pit:
+    def __init__(self,x,y):
+        self.rect =  pygame.Rect(x, y,70 ,150)
 
-    def update(self, player, game_state):
-        # בדיקת התנגשות עם השחקן שמישהו אחר יצר
-        if player.rect.colliderect(self.rect):
-            # מוריד ניקוד במקום להרוג (hp=0)
-            if game_state['score'] > 0:
-                game_state['score'] -= 1
-            player.speed = 1  # האטה בגלל הדביקות
-        else:
-            player.speed = 5  # מהירות רגילה מחוץ לבור
 
-    def draw(self, screen, offset_x):
-        # כאן קורה הקסם של הציור עם ה-offset
-        pygame.draw.rect(screen, self.color, (self.rect.x - offset_x, self.rect.y, self.rect.width, self.rect.height))
+    def draw(self,offset_x):
+        # pygame.draw.rect(screen, RED, (self.rect.x - offset_x, self.rect.y, self.rect.width, self.rect.height))
+        screen.blit(cola_pit_img, (self.rect.x - offset_x, self.rect.y-40))
+
+#--------PLATFORM------
+class Platform:
+    def __init__(self,x,y):
+        self.rect = pygame.Rect(x,y,400,100)
+
+    def draw(self,offset_x):
+        screen.blit(platform_img,(self.rect.x - offset_x, self.rect.y))
