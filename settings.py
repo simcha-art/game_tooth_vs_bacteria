@@ -61,6 +61,8 @@ germ_img_left = pygame.transform.scale(germ_img_left, (100, 100))
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
 
+gate_img = pygame.image.load("static/gate.png")
+gate_img = pygame.transform.scale(gate_img,(200,200))
 
 
 #תמונות של הבלונים

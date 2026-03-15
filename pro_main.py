@@ -7,6 +7,7 @@ bullets = []
 candies = []
 cola_pits = [Cola_pit(955,500),Cola_pit(1970,500),Cola_pit(2970,500)]
 platforms = [Platform(400,200)]
+gate = Gate()
 score = 0
 spawn_timer = 0
 game_state = "playing"

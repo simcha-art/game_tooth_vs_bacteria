@@ -79,7 +79,8 @@ while True:
         offset_x = player.rect.x - WIDTH // 2
         offset_x = max(0, min(LEVEL_WIDTH - WIDTH, offset_x))
 
-
+        if player.rect.colliderect(gate.rect):
+            game_state = "victory"
 
 
         # ניהול סוכריות
@@ -154,6 +155,7 @@ while True:
             for s in candies: s.draw(offset_x)
             for p in platforms: p.draw(offset_x)
             for bullet in bullets: bullet.draw(offset_x)
+            gate.draw(offset_x)
 
             hp_text = font.render(f"HP: {player.hp}", True, WHITE)
             score_text = font.render(f"Score: {score}", True, WHITE)

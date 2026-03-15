@@ -26,7 +26,7 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f and game_state == "playing":
-                bullets.append(Bullet(player.rect.right, player.rect.centery))
+                bullets.append(Bullet(player.rect.right, player.rect.centery,direction=True))
 
     keys = pygame.key.get_pressed()
 

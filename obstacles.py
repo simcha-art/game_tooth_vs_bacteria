@@ -31,3 +31,11 @@ class Platform:
 
     def draw(self,offset_x):
         screen.blit(platform_img,(self.rect.x - offset_x, self.rect.y))
+
+# ----- GATE ---------
+class Gate:
+    def __init__(self):
+        self.rect = pygame.Rect(3800,350,150,150)
+
+    def draw(self,offset_x):
+        screen.blit(gate_img,(self.rect.x - offset_x,self.rect.y))
