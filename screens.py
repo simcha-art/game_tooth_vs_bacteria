@@ -24,7 +24,7 @@ class StartScreen:
     def draw(self, surface):
         surface.fill(PINK)
         if self.image:
-            # מירכוס התמונה בחלק העליון של המסך
+            # מירכוז התמונה בחלק העליון של המסך
             img_rect = self.image.get_rect(center=(WIDTH // 2 - 20, HEIGHT // 3 + 60))
             surface.blit(self.image, img_rect)
 
@@ -114,15 +114,11 @@ class VictoryScreen:
         surface.blit(next_surf, next_rect)
 # ---------------- מסך הניצחון הסופי ----------------
 # מוצג לאחר ניצחון בשלב 2 - סיום המשחק
-import random
 
 # ---------------- מחלקת בלון ----------------
+# מנהלת בלון שנע במהירות קבועה ללא חוטים מצוירים
 import random
 
-
-# ---------------- מחלקת בלון צבעוני ----------------
-
-# מנהלת בלון שנע במהירות קבועה ללא חוטים מצוירים
 class Balloon:
     def __init__(self, balloon_images, initial_y):
         self.balloon_images = balloon_images
