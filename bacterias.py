@@ -33,7 +33,7 @@ class BaseBacteria(ABC):
 class RegularBacteria(BaseBacteria):
     def __init__(self, x, y):
         # קורא ל-init של מחלקת הבסיס, עם מהירות גבוהה (4) ונזק רגיל (10)
-        super().__init__(x, y, speed=4, damage=10)
+        super().__init__(x, y, speed=3, damage=10)
         self.current_speed = self.speed if self.facing_right else -self.speed
 
     def move(self, target_rect=None):
@@ -51,7 +51,7 @@ class RegularBacteria(BaseBacteria):
 class TrackerBacteria(BaseBacteria):
     def __init__(self, x, y):
         # מהירות נמוכה (1.5)
-        super().__init__(x, y, width=120, height=120, speed=2, damage=10)
+        super().__init__(x, y, width=120, height=120, speed=4, damage=10)
         self.img_right = tracker_img_right
         self.img_left = tracker_img_left
 
@@ -70,8 +70,8 @@ class TrackerBacteria(BaseBacteria):
 class KnightBacteria(BaseBacteria):
     def __init__(self, x, y):
 
-        # מהירות בינונית (2), אבל נזק כפול (20)
-        super().__init__(x, y, speed=2, damage=20)
+
+        super().__init__(x, y, speed=3, damage=10)
         self.img_right = knight_img_right
         self.img_left = knight_img_left
         self.current_speed = self.speed if self.facing_right else -self.speed
@@ -100,9 +100,9 @@ class AcidDrop:
 
 class ShooterBacteria(BaseBacteria):
     def __init__(self, x, y):
+        super().__init__(x, y, speed=2, damage=5,width=140,height=120)  # מגע רגיל עושה מעט נזק (5)
         self.img_right = shooter_img_right
         self.img_left = shooter_img_left
-        super().__init__(x, y, speed=2, damage=5)  # מגע רגיל עושה מעט נזק (5)
         self.shoot_cooldown = 0
         self.projectiles = []
 
@@ -117,7 +117,7 @@ class ShooterBacteria(BaseBacteria):
             else:
                 # יורה קליע
                 self.projectiles.append(AcidDrop(self.rect.centerx, self.rect.centery, self.facing_right))
-                self.shoot_cooldown = 60  # יורה כל 60 פריימים (נניח שנייה אחת)
+                self.shoot_cooldown = 200  # יורה כל 60 פריימים (נניח שנייה אחת)
 
         # מעדכן את הקליעים שלו
         for proj in self.projectiles:
@@ -129,4 +129,21 @@ class ShooterBacteria(BaseBacteria):
         # מצייר גם את הקליעים שלו
         for proj in self.projectiles:
             proj.draw(offset_x)
+
+class JumperBacteria(BaseBacteria):
+    def __init__(self,x,y):
+        super().__init__(x, y,speed=2,damage=20,width=140,height=120)
+        self.current_speed = self.speed if self.facing_right else -self.speed
+        self.img_right = jumper_img_right
+        self.img_left = jumper_img_left
+
+    def move(self, target_rect=None):
+        self.rect.x += self.current_speed
+
+
+        # שינוי כיוון כשהוא פוגע בקצוות המסך
+        if self.rect.left < 0 or self.rect.right > LEVEL_WIDTH:
+            self.current_speed *= -1
+            self.facing_right = self.current_speed > 0
+
 

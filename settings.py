@@ -1,5 +1,5 @@
 import pygame
-
+from PIL.ImageOps import scale
 
 pygame.init()
 # צבעים
@@ -44,13 +44,15 @@ floor_img = pygame.image.load("static/floor.png")
 floor_img = pygame.transform.scale(floor_img, (500, 426))
 platform_img = pygame.transform.scale(floor_img,(400,300))
 
+# ------------ TOOTH ----------------------
+
 tooth_img_right = pygame.image.load("static/tooth_right.png")
 tooth_img_right = pygame.transform.scale(tooth_img_right, (120, 120))
-
-
 large_tooth_left = pygame.image.load("static/large_tooth_left.png")
 tooth_img_left = pygame.image.load("static/tooth_left.png")
 tooth_img_left = pygame.transform.scale(tooth_img_left, (120, 120))
+
+# -------------- RegularBacteria -------------------
 
 germ_img_right = pygame.image.load("static/germ_right.png")
 germ_img_right = pygame.transform.scale(germ_img_right, (100, 100))
@@ -68,21 +70,32 @@ tracker_img_left = pygame.transform.scale(tracker_img_left, (120, 120))
 
 # ---------------- KNIGHT ----------------
 knight_img_right = pygame.image.load("static/knight_right.png")
-knight_img_right = pygame.transform.scale(knight_img_right, (100, 100))
+knight_img_right = pygame.transform.scale(knight_img_right, (120, 120))
 
 knight_img_left = pygame.image.load("static/knight_left.png")
-knight_img_left = pygame.transform.scale(knight_img_left, (100, 100))
+knight_img_left = pygame.transform.scale(knight_img_left, (120, 120))
 
 
 # ---------------- SHOOTER ----------------
 shooter_img_right = pygame.image.load("static/acid germ_right.png")
-shooter_img_right = pygame.transform.scale(shooter_img_right, (100, 100))
+shooter_img_right = pygame.transform.scale(shooter_img_right, (140, 120))
 
 shooter_img_left = pygame.image.load("static/acid germ_left.png")
-shooter_img_left = pygame.transform.scale(shooter_img_left, (100, 100))
+shooter_img_left = pygame.transform.scale(shooter_img_left, (140, 120))
+
+#---------------- JUMPER ------------------
+jumper_img_right = pygame.image.load("static/jump bacteria.png")
+jumper_img_right = pygame.transform.scale(jumper_img_right,(140,120))
+
+jumper_img_left = pygame.image.load("static/jump bacteria left.png")
+jumper_img_left = pygame.transform.scale(jumper_img_left,(140,120))
+
+#---------------- CANDY --------------
 
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
+
+#-------------- GATE --------------------
 
 gate_img = pygame.image.load("static/gate.png")
 gate_img = pygame.transform.scale(gate_img,(200,200))

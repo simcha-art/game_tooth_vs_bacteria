@@ -16,7 +16,7 @@ pygame.mixer.init()
 # ---------------- GLOBALS ----------------
 score = 0
 spawn_timer = 0
-level_game = 3
+level_game = 1
 last_damage_time = 0
 damage_delay = 500
 
@@ -42,14 +42,35 @@ def load_level(level):
         platforms = [Platform(800, 200), Platform(1870, 200), Platform(2870, 200)]
 
     elif level == 2:
-        bacteria = [TrackerBacteria(random.randint(300, 4000), 420) for _ in range(20)]
+        bacteria = [[RegularBacteria(random.randint(300, 4000), 420) for _ in range(5)],
+                    [TrackerBacteria(600,420),TrackerBacteria(2000,420),TrackerBacteria(3000,420)]]
         cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
         platforms = [Platform(1000, 250), Platform(2000, 150)]
 
-    elif level ==3:
-        bacteria = [KnightBacteria(random.randint(300, 4000), 420) for _ in range(20)]
+    elif level == 3:
+        bacteria = [[RegularBacteria(random.randint(300, 4000), 420) for _ in range(5)],
+                    [TrackerBacteria(random.randint(300, 4000), 420) for _ in range(7)],
+                    [KnightBacteria(500,420),KnightBacteria(1200,420),KnightBacteria(1800,420)]]
         cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
         platforms = [Platform(1000, 250), Platform(2000, 150)]
+
+    elif level == 4:
+        bacteria = [[ShooterBacteria(500, 420), ShooterBacteria(1000, 420)],
+                    [KnightBacteria(random.randint(300, 4000), 420) for _ in range(5)],
+                    [TrackerBacteria(random.randint(300, 4000), 420) for _ in range(5)]]
+        cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
+        platforms = [Platform(1000, 250), Platform(2000, 150)]
+
+    elif level == 5:
+        bacteria = [[KnightBacteria(random.randint(300, 4000), 420) for _ in range(10)],
+                    [TrackerBacteria(700,420),TrackerBacteria(1600,420),TrackerBacteria(2400,420)],
+                    [ShooterBacteria(1300,420),ShooterBacteria(2000,420)],
+                    [JumperBacteria(800,420),JumperBacteria(1050,420),JumperBacteria(2500,420)]]
+
+        cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
+        platforms = [Platform(1000, 250), Platform(2000, 150)]
+
+
 
 
     gate = Gate()
@@ -85,13 +106,13 @@ while True:
 
             elif game_state == "victory" and event.key == pygame.K_RETURN:
                 level_game += 1
-                if level_game > 3:
+                if level_game > 5:
                     game_state = "final_victory"
                 elif pygame.K_RETURN:
                     load_level(level_game)
                     game_state = "playing"
 
-            elif game_state == "playing" and event.key == pygame.K_RETURN:
+            elif game_state == "playing" and event.key == pygame.K_z :
                 bullets.append(Bullet(player.rect.right, player.rect.centery, player.facing_right))
                 shot_sound.play()
 
@@ -121,8 +142,12 @@ while True:
             c.move()
 
         # Bacteria
-        for b in bacteria:
-            b.move(player.rect)
+        for species in bacteria:
+            if type(species) == list:
+                for b in species:
+                    b.move(player.rect)
+            else:
+                species.move(player.rect)
 
         # Bullets
         for bullet in bullets[:]:
@@ -132,25 +157,48 @@ while True:
 
         # Bullet hits
         for bullet in bullets[:]:
-            for b in bacteria[:]:
-                if bullet.rect.colliderect(b.rect):
-                    bullets.remove(bullet)
-                    bacteria.remove(b)
-                    score += 50
-                    break
+            for species in bacteria[:]:
+                if type(species) == list:
+                    for b in species:
+                        if bullet.rect.colliderect(b.rect):
+                            bullets.remove(bullet)
+                            species.remove(b)
+                            score += 50
+                            break
+                else:
+                    if bullet.rect.colliderect(species.rect):
+                        bullets.remove(bullet)
+                        bacteria.remove(species)
+                        score += 50
+                        break
+
 
         # Player damage
-        for b in bacteria[:]:
-            if player.rect.colliderect(b.rect):
-                player.hp -= b.damage
-                bacteria.remove(b)
-                player_hit_sound.play()
+        for species in bacteria[:]:
+            if type(species) == list:
+                for b in species:
+                    if player.rect.colliderect(b.rect):
+                        player.hp -= b.damage
+                        species.remove(b)
+                        player_hit_sound.play()
 
-            if hasattr(b, 'projectiles'):
-                for proj in b.projectiles[:]:
-                    if player.rect.colliderect(proj.rect):
-                        player.hp -= proj.damage
-                        b.projectiles.remove(proj)
+                    if hasattr(b, 'projectiles'):
+                        for proj in b.projectiles[:]:
+                            if player.rect.colliderect(proj.rect):
+                                player.hp -= proj.damage
+                                b.projectiles.remove(proj)
+            else:
+                if player.rect.colliderect(species.rect):
+                    player.hp -= species.damage
+                    bacteria.remove(species)
+                    player_hit_sound.play()
+
+                if hasattr(species, 'projectiles'):
+                    for proj in species.projectiles[:]:
+                        if player.rect.colliderect(proj.rect):
+                            player.hp -= proj.damage
+                            species.projectiles.remove(proj)
+
 
         for s in candies[:]:
             if player.rect.colliderect(s.rect):
@@ -192,8 +240,12 @@ while True:
 
         player.draw(offset_x)
 
-        for b in bacteria:
-            b.draw(offset_x)
+        for species in bacteria:
+            if type(species) == list:
+                for b in species:
+                    b.draw(offset_x)
+            else:
+                species.draw(offset_x)
 
         for s in candies:
             s.draw(offset_x)
