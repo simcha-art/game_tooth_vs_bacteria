@@ -10,6 +10,10 @@ class BaseBacteria(ABC):
         self.damage = damage
         # משתנה שעוזר לנו לדעת לאיזה כיוון החיידק מסתכל (לצורך הציור)
         self.facing_right = random.choice([True, False])
+        # תמונות (ברירת מחדל - רגיל)
+        self.img_right = germ_img_right
+        self.img_left = germ_img_left
+
 
     @abstractmethod
     def move(self, target_rect=None):
@@ -20,12 +24,10 @@ class BaseBacteria(ABC):
         pass
 
     def draw(self, offset_x):
-        # פונקציית ציור גלובלית לכולם, חוסך קוד כפול!
         if self.facing_right:
-            screen.blit(germ_img_right, (self.rect.x - offset_x, self.rect.y))
+            screen.blit(self.img_right, (self.rect.x - offset_x, self.rect.y))
         else:
-            screen.blit(germ_img_left, (self.rect.x - offset_x, self.rect.y))
-
+            screen.blit(self.img_left, (self.rect.x - offset_x, self.rect.y))
 
 # ---------------- 1. חיידק רגיל (מהיר, לא עוקב) ----------------
 class RegularBacteria(BaseBacteria):
@@ -43,11 +45,15 @@ class RegularBacteria(BaseBacteria):
             self.facing_right = self.current_speed > 0
 
 
+
+
 # ---------------- 2. חיידק עוקב (איטי, רודף אחרי השן) ----------------
 class TrackerBacteria(BaseBacteria):
     def __init__(self, x, y):
         # מהירות נמוכה (1.5)
-        super().__init__(x, y, speed=1.5, damage=10)
+        super().__init__(x, y, width=120, height=120, speed=2, damage=10)
+        self.img_right = tracker_img_right
+        self.img_left = tracker_img_left
 
     def move(self, target_rect):
         # אם יש מטרה (השן), נזוז לכיוונה
@@ -63,8 +69,11 @@ class TrackerBacteria(BaseBacteria):
 # ---------------- 3. חיידק אביר (כבד, מוריד הרבה חיים) ----------------
 class KnightBacteria(BaseBacteria):
     def __init__(self, x, y):
+
         # מהירות בינונית (2), אבל נזק כפול (20)
         super().__init__(x, y, speed=2, damage=20)
+        self.img_right = knight_img_right
+        self.img_left = knight_img_left
         self.current_speed = self.speed if self.facing_right else -self.speed
 
     def move(self, target_rect=None):
@@ -91,6 +100,8 @@ class AcidDrop:
 
 class ShooterBacteria(BaseBacteria):
     def __init__(self, x, y):
+        self.img_right = shooter_img_right
+        self.img_left = shooter_img_left
         super().__init__(x, y, speed=2, damage=5)  # מגע רגיל עושה מעט נזק (5)
         self.shoot_cooldown = 0
         self.projectiles = []

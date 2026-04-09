@@ -16,7 +16,7 @@ pygame.mixer.init()
 # ---------------- GLOBALS ----------------
 score = 0
 spawn_timer = 0
-level_game = 1
+level_game = 3
 last_damage_time = 0
 damage_delay = 500
 
@@ -42,9 +42,15 @@ def load_level(level):
         platforms = [Platform(800, 200), Platform(1870, 200), Platform(2870, 200)]
 
     elif level == 2:
-        bacteria = [RegularBacteria(random.randint(300, 4000), 420) for _ in range(20)]
+        bacteria = [TrackerBacteria(random.randint(300, 4000), 420) for _ in range(20)]
         cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
         platforms = [Platform(1000, 250), Platform(2000, 150)]
+
+    elif level ==3:
+        bacteria = [KnightBacteria(random.randint(300, 4000), 420) for _ in range(20)]
+        cola_pits = [Cola_pit(1200, 500), Cola_pit(2500, 500)]
+        platforms = [Platform(1000, 250), Platform(2000, 150)]
+
 
     gate = Gate()
 

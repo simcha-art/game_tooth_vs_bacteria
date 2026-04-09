@@ -1,0 +1,67 @@
+[33mcommit 9824d323b7b5625d57aeebfbd6d58f40ca38c372[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msimcha[m[33m)[m
+Author: Meir-Holzer <meirh1900@gmail.com>
+Date:   Sun Mar 15 16:50:36 2026 +0200
+
+    סתם בלאגן
+
+[33mcommit c24157628a55f45b3ff4efacd6990fc095ee7c19[m
+Author: Meir-Holzer <meirh1900@gmail.com>
+Date:   Fri Mar 13 02:03:07 2026 +0200
+
+    remove pycache from repo
+
+[33mcommit 281ecce6c2b28f0a30451e322433a8f7f53777ef[m
+Author: Simchacop <simchacop@gmail.com>
+Date:   Thu Mar 12 01:42:05 2026 +0200
+
+    I added beautiful screens for beggining of the game, for game over, for winning level1 and for winning the final level
+
+[33mcommit c5106909b1b32aaab27adb43eaa5ce6ba9ecdc43[m
+Merge: 4754095 3e662a1
+Author: Meir-Holzer <meirh1900@gmail.com>
+Date:   Wed Mar 11 12:00:48 2026 +0200
+
+    Merge pull request #2 from simcha-art/simcha
+    
+    seprate to different scripts
+
+[33mcommit 3e662a1cc398cb665f4bcd96f1f35f5ed111d068[m
+Author: Simchacop <simchacop@gmail.com>
+Date:   Wed Mar 11 11:54:07 2026 +0200
+
+    seprate to different scripts
+
+[33mcommit 47540954aba3284b83ed1b76a91a377b91f0c3f0[m
+Merge: a378061 2062df7
+Author: simcha-art <simchacop@gmail.com>
+Date:   Wed Mar 11 11:15:08 2026 +0200
+
+    Merge pull request #1 from simcha-art/meir
+    
+    the game changed to pygame
+
+[33mcommit 2062df765e5917d7774cde8aaf9e524063ecfb4a[m
+Author: Meir-Holzer <meirh1900@gmail.com>
+Date:   Tue Mar 10 19:46:21 2026 +0200
+
+    the game changed
+
+[33mcommit a3780618194d0dddb4668fcee1021c4ce3dc3558[m
+Author: Meir-Holzer <meirh1900@gmail.com>
+Date:   Mon Mar 9 18:59:22 2026 +0200
+
+    Update README.md
+    
+    נוסף תיאור של המשחק באופן מפורט
+
+[33mcommit dd0a0ec8a7613f70705f2805e9fa02f8d3979798[m
+Author: Simchacop <simchacop@gmail.com>
+Date:   Mon Mar 9 15:17:38 2026 +0200
+
+    basic version, made with gemini
+
+[33mcommit 49b49429e975293bbe7965efcd8bf734efcb5a58[m
+Author: simcha-art <simchacop@gmail.com>
+Date:   Sun Mar 8 17:10:20 2026 +0200
+
+    Initial commit

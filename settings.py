@@ -58,6 +58,29 @@ germ_img_right = pygame.transform.scale(germ_img_right, (100, 100))
 germ_img_left = pygame.image.load("static/germ_left.png")
 germ_img_left = pygame.transform.scale(germ_img_left, (100, 100))
 
+# ---------------- TRACKER ----------------
+tracker_img_right = pygame.image.load("static/tracing_germ_right.png")
+tracker_img_right = pygame.transform.scale(tracker_img_right, (120, 120))
+
+tracker_img_left = pygame.image.load("static/tracing_germ_left.png")
+tracker_img_left = pygame.transform.scale(tracker_img_left, (120, 120))
+
+
+# ---------------- KNIGHT ----------------
+knight_img_right = pygame.image.load("static/knight_right.png")
+knight_img_right = pygame.transform.scale(knight_img_right, (100, 100))
+
+knight_img_left = pygame.image.load("static/knight_left.png")
+knight_img_left = pygame.transform.scale(knight_img_left, (100, 100))
+
+
+# ---------------- SHOOTER ----------------
+shooter_img_right = pygame.image.load("static/acid germ_right.png")
+shooter_img_right = pygame.transform.scale(shooter_img_right, (100, 100))
+
+shooter_img_left = pygame.image.load("static/acid germ_left.png")
+shooter_img_left = pygame.transform.scale(shooter_img_left, (100, 100))
+
 candy_img = pygame.image.load("static/candy.png")
 candy_img = pygame.transform.scale(candy_img,(40,40))
 
